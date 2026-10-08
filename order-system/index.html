@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Order System</title>
+    <script>
+        async function runBeta() {
+            const n = document.getElementById('requests').value || 100;
+            const response = await fetch(`beta.php?n=${n}`);
+            alert(await response.text());
+        }
+
+        async function updateStats() {
+            const response = await fetch('gamma.php');
+            const data = await response.json();
+            document.getElementById('stats').innerHTML =
+                JSON.stringify(data, null, 2);
+        }
+
+        setInterval(updateStats, 1000);
+    </script>
+</head>
+<body>
+<h1>Order System</h1>
+<input type="number" id="requests" placeholder="Количество запросов" value="100">
+<button onclick="runBeta()">Запуск</button>
+<pre id="stats">Загрузка статистики...</pre>
+</body>
+</html>
